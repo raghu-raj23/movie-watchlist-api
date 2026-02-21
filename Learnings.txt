@@ -1,0 +1,5 @@
+npx prisma init
+npm i prisma --save-dev 
+npm i @prisma/client 
+npx prisma migrate dev --name add_users_table
+npx prisma generate
