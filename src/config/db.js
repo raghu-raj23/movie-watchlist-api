@@ -1,6 +1,13 @@
-import { PrismaClient } from "@prisma/client/extension";
+import { PrismaClient } from "@prisma/client"; // Use standard import
+// const { PrismaClient } = pkg; // Extract PrismaClient from the imported package
+import { PrismaPg } from "@prisma/adapter-pg";
+import pg from "pg";
+
+const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL });
+const adapter = new PrismaPg(pool);
 
 const prisma = new PrismaClient({
+	adapter,
 	log:
 		process.env.NODE_ENV === "development"
 			? ["query", "error", "warn"]
@@ -23,3 +30,4 @@ const disconnectDB = async () => {
 };
 
 export { prisma, connectDB, disconnectDB };
+1
